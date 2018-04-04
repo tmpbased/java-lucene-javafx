@@ -1,41 +1,78 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>app</groupId>
-  <artifactId>lucene-javafx</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <groupId>tilt</groupId>
+  <artifactId>tilt</artifactId>
+  <packaging>pom</packaging>
+  <version>${revision}</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>9</maven.compiler.source>
-    <maven.compiler.target>9</maven.compiler.target>
+    <revision>0.0.1-SNAPSHOT</revision>
+    <java.version>11</java.version>
   </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.lucene</groupId>
-      <artifactId>lucene-core</artifactId>
-      <version>7.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.lucene</groupId>
-      <artifactId>lucene-queryparser</artifactId>
-      <version>7.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.controlsfx</groupId>
-      <artifactId>controlsfx</artifactId>
-      <version>9.0.0</version>
-    </dependency>
-  </dependencies>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo1.maven.org/maven2</url>
+    </repository>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+  <dependencies />
+  <pluginRepositories>
+    <pluginRepository>
+      <id>apache.snapshots</id>
+      <url>http://repository.apache.org/snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-maven-plugin</artifactId>
+          <version>0.0.3</version>
+          <configuration>
+            <skip>true</skip>
+            <mainClass>none</mainClass>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>com.zenjava</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>8.8.3</version>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
-          <mainClass>jfx.App</mainClass>
+          <compilerVersion>${java.version}</compilerVersion>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <release>${java.version}</release>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
       </plugin>
     </plugins>
   </build>
+  <modules>
+    <module>tilt-lib</module>
+    <module>tilt-api</module>
+    <module>tilt-impl-lucene</module>
+    <module>tilt-jfx</module>
+    <module>tilt-test</module>
+    <module>mpw</module>
+    <module>rl</module>
+    <module>abcl-test</module>
+    <module>tilt-perftest</module>
+  </modules>
 </project>

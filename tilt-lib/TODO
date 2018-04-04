@@ -1,0 +1,40 @@
+// https://blogs.oracle.com/darcy/properties-via-annotation-processing
+
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.SOURCE)
+@interface Switch {
+  String value() default "";
+}
+
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.SOURCE)
+@interface Case {
+  String value() default "";
+}
+
+@Generated
+abstract static class GeneratedSuperclass.TypeSafeNode<T> extends Node /* T */ {
+}
+
+abstract static class TypeSafeNode extends Node /* GeneratedSuperclass.TypeSafeNode<Node> */ {
+  @Override
+  protected abstract void consume(Flow flow, @Switch Event event);
+
+  void handle(Flow flow, @Case Ev0 event) {
+    // implementation
+  }
+  
+  public static TypeSafeNode newInstance() {
+    return new GeneratedSubclass.TypeSafeNode();
+  }
+}
+
+@Generated
+static final class GeneratedSubclass.TypeSafeNode extends TypeSafeNode {
+  @Override
+  protected void consume(Flow flow, Event event) {
+    if (event /* Switch */ instanceof Ev0 /* Case */) {
+      handle(flow, (Ev0 /* Case */) event /* Switch */);
+    }
+  }
+}

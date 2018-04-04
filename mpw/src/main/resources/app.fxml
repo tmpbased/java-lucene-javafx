@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="267.0" prefWidth="489.0" style="-fx-font-family: monospace;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+      <VBox fx:id="masterKeyPane" prefWidth="100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Name" />
+                  <TextField fx:id="fullName" GridPane.columnIndex="1" />
+                  <Label text="Password" GridPane.rowIndex="1" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <PasswordField fx:id="masterPassword" HBox.hgrow="ALWAYS" />
+                        <ToggleButton fx:id="passwordShowHide" mnemonicParsing="false" text="👁" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#createMasterKey" text="Create master key" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+      <VBox fx:id="siteKeyPane" disable="true" VBox.vgrow="ALWAYS">
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Site name" />
+                  <TextField fx:id="siteName" GridPane.columnIndex="1" />
+                  <Label text="Site counter" GridPane.rowIndex="1" />
+                  <Spinner fx:id="siteCounter" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Login length" GridPane.rowIndex="2" />
+                  <Label text="Password length" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="loginLength" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="passwordLength" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#clipSiteLogin" text="Clip login" />
+                  <Button mnemonicParsing="false" onAction="#clipSitePassword" text="Clip password" />
+                  <Button mnemonicParsing="false" onAction="#changeMasterKey" text="Change master key" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+  </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

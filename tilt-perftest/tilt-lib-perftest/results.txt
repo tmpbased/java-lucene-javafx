@@ -1,0 +1,4 @@
+Benchmark                         Mode  Cnt         Score   Error  Units
+NeDispatchBenchmark.testMethod   thrpt       28355983.254          ops/s
+NeDispatchBenchmark.testMethod0  thrpt       50719088.368          ops/s
+NeDispatchBenchmark.testMethod1  thrpt       37357963.762          ops/s
