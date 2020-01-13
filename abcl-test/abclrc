@@ -1,12 +1,6 @@
-;#-quicklisp
-;(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
-;                                       (user-homedir-pathname))))
-;  (if (probe-file quicklisp-init)
-;    (load quicklisp-init)
-;    (progn
-;      (require :abcl-contrib)
-;      (asdf:load-system :quicklisp-abcl)))
-
 (require :asdf)
 (require :abcl-contrib)
 (asdf:load-system :quicklisp-abcl :force t)
+
+(push "src/main/lisp/" asdf:*central-registry*)
+(ql:quickload :my-prj)

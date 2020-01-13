@@ -22,6 +22,7 @@ public class GraphTest {
   private final Event ping = new Ping(), pong = new Pong();
 
   private abstract class A extends Node {
+    @Override
     public abstract void consume(final Flow flow, final Event event);
 
     public void ping() {
@@ -262,6 +263,61 @@ public class GraphTest {
     in.send(new Num(2));
 
     assertEquals(4 + 8, out.values.get(out.values.size() - 1));
+  }
+
+  @Test
+  public void seqSeq() throws Exception {
+    final class Num implements Event {
+      final int num;
+
+      public Num(final int num) {
+        this.num = num;
+      }
+    }
+    final class In extends Node {
+      @Override
+      protected void consume(Flow flow, Event event) {
+      }
+    }
+    final class Pow extends Node {
+      private final int pow;
+
+      public Pow(final int pow) {
+        this.pow = pow;
+      }
+
+      @Override
+      protected void consume(Flow flow, Event event) {
+        flow.send(new Num((int) Math.pow(Num.class.cast(event).num, pow)));
+      }
+    }
+    final class Sum extends Node {
+      private int sum;
+
+      @Override
+      protected void consume(Flow flow, Event event) {
+        sum += Num.class.cast(event).num;
+        flow.send(new Num(sum));
+      }
+    }
+    final class Out extends Node {
+      final List<Integer> values = new ArrayList<>();
+
+      @Override
+      protected void consume(Flow flow, Event event) {
+        this.values.add(Num.class.cast(event).num);
+      }
+    }
+    final var in = new In();
+    final var out = new Out();
+    final StaticBus g = new StaticBus(
+        Map.of(in, new CrSeq(List.of(new CrSeq(List.of(new Pow(2), new Sum())), out))));
+    g.setUp();
+
+    in.send(new Num(2));
+    in.send(new Num(3));
+
+    assertEquals(4 + 9, out.values.get(out.values.size() - 1));
   }
 
   @Test

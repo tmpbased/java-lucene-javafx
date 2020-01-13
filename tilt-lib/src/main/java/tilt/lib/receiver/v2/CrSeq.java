@@ -3,7 +3,6 @@ package tilt.lib.receiver.v2;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Unmodifiable non-empty list of non-null elements, representing a sequence of
@@ -46,7 +45,10 @@ public final class CrSeq extends Consumer {
   }
 
   private Consumer get(int index) {
-    return Optional.ofNullable(this.consumers.get(index)).orElse(null);
+    if (index < 0 || index >= this.consumers.size()) {
+      return null;
+    }
+    return this.consumers.get(index);
   }
 
   @Override
