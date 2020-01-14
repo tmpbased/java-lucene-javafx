@@ -9,35 +9,11 @@
     <version>${revision}</version>
   </parent>
   <artifactId>tilt-lib-test</artifactId>
-  <properties>
-    <tilt.apt.version>0.0.1-SNAPSHOT</tilt.apt.version>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>tilt-lib</artifactId>
       <version>${revision}</version>
     </dependency>
-    <dependency>
-      <groupId>tilt-apt</groupId>
-      <artifactId>tilt-dispatch-annotations</artifactId>
-      <version>${tilt.apt.version}</version>
-    </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>tilt-apt</groupId>
-              <artifactId>tilt-dispatch-processor</artifactId>
-              <version>${tilt.apt.version}</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

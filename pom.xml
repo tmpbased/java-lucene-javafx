@@ -10,7 +10,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <revision>0.0.1-SNAPSHOT</revision>
-    <java.version>13</java.version>
+    <tilt.apt.version>0.0.1-SNAPSHOT</tilt.apt.version>
+    <java.version>11</java.version>
   </properties>
   <repositories>
     <repository>
@@ -26,7 +27,13 @@
       <url>https://jitpack.io</url>
     </repository>
   </repositories>
-  <dependencies />
+  <dependencies>
+    <dependency>
+      <groupId>tilt-apt</groupId>
+      <artifactId>auto-dispatch-annotations</artifactId>
+      <version>${tilt.apt.version}</version>
+    </dependency>
+  </dependencies>
   <pluginRepositories>
     <pluginRepository>
       <id>apache.snapshots</id>
@@ -81,11 +88,18 @@
           <source>${java.version}</source>
           <target>${java.version}</target>
           <release>${java.version}</release>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>tilt-apt</groupId>
+              <artifactId>auto-dispatch-processor</artifactId>
+              <version>${tilt.apt.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>3.0.0-M4</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
