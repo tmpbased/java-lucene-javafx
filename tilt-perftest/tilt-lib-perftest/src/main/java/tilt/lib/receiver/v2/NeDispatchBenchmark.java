@@ -191,8 +191,8 @@ public class NeDispatchBenchmark {
     return in;
   }
 
-  private static final Ev1 a = new Ev1();
-  private static final Ev1 b = new Ev1();
+  private static final Ev6 a = new Ev6();
+  private static final Ev7 b = new Ev7();
 
   private static final Out0 out0 = new Out0();
   private static final Out1 out1 = new Out1();

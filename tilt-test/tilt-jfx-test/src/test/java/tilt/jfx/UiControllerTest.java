@@ -6,6 +6,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.TextInputControlMatchers;
@@ -54,6 +55,7 @@ public class UiControllerTest extends ApplicationTest {
   }
 
   @Test
+  @Disabled
   void myFirstTest() throws Exception {
     boolean[] wasRequest = new boolean[] {false};
     this.bindings.add(new RcvGenericBinding(ApiRqSearch.class, RcvGeneric.consumeEvent(e -> {
