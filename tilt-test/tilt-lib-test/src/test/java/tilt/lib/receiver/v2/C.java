@@ -6,13 +6,13 @@ import tilt.apt.dispatch.annotations.Case;
 import tilt.apt.dispatch.annotations.Switch;
 
 public abstract class C<
-        X extends List<C<X>> & Serializable
-        /** TODO extends A<X> */
+        X extends List<? extends Number> & Serializable,
+        Y extends A<Y>
         >
-    extends C_GeneratedSuperclass<X, A<X>> {
+    extends C_GeneratedSuperclass<X, Y, A<X>> {
   public C() {}
 
-  protected <Q extends X, Z extends C<? super List<Number>> & Serializable> C(Z defaultValue)
+  protected <Q extends X, Z extends C<?, ?> & Serializable> C(Z defaultValue)
       throws Exception {}
 
   @Override
