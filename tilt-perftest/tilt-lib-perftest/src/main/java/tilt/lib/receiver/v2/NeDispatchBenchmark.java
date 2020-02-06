@@ -40,6 +40,8 @@ import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
+import tilt.apt.dispatch.annotations.Case;
+import tilt.apt.dispatch.annotations.Switch;
 
 @Fork(value = 1, warmups = 1)
 @Warmup(iterations = 1)
@@ -129,10 +131,10 @@ public class NeDispatchBenchmark {
     }
   }
 
-  public static final class OutT extends NeDispatch {
+  public static final class OutReflect extends NeDispatch {
     public int[] count;
 
-    public OutT() {
+    public OutReflect() {
       super(MethodHandles.lookup());
       count = new int[EVENT_COUNT];
     }
@@ -175,6 +177,50 @@ public class NeDispatchBenchmark {
     }
   }
 
+  public abstract static class OutAnnProc
+      extends NeDispatchBenchmark$OutAnnProc_GeneratedSuperclass<Node> {
+    public int[] count;
+
+    public OutAnnProc() {
+      count = new int[NeDispatchBenchmark.EVENT_COUNT];
+    }
+
+    @Override
+    protected abstract void consume(Flow flow, @Switch Event event);
+
+    public void dispatch(final Flow flow, @Case final Ev0 event) {
+      count[0]++;
+    }
+
+    public void dispatch(final Flow flow, @Case final Ev1 event) {
+      count[1]++;
+    }
+
+    public void dispatch(final Flow flow, @Case final Ev2 event) {
+      count[2]++;
+    }
+
+    public void dispatch(final Flow flow, @Case final Ev3 event) {
+      count[3]++;
+    }
+
+    public void dispatch(final Flow flow, @Case final Ev4 event) {
+      count[4]++;
+    }
+
+    public void dispatch(final Flow flow, @Case final Ev5 event) {
+      count[5]++;
+    }
+
+    public void dispatch(final Flow flow, @Case final Ev6 event) {
+      count[6]++;
+    }
+
+    public void dispatch(final Flow flow, @Case final Ev7 event) {
+      count[7]++;
+    }
+  }
+
   public static final class In extends Node {
     @Override
     protected void consume(Flow flow, Event event) {}
@@ -196,14 +242,16 @@ public class NeDispatchBenchmark {
 
   private static final Out0 out0 = new Out0();
   private static final Out1 out1 = new Out1();
-  private static final OutT outT = new OutT();
-  private static final In in0, in1, inT;
+  private static final OutReflect outReflect = new OutReflect();
+  private static final OutAnnProc outAnnProc = OutAnnProc.newInstance();
+  private static final In in0, in1, inReflect, inAnnProc;
 
   static {
     try {
       in0 = in(out0);
       in1 = in(out1);
-      inT = in(outT);
+      inReflect = in(outReflect);
+      inAnnProc = in(outAnnProc);
     } catch (final Throwable e) {
       e.printStackTrace();
       throw new AssertionError();
@@ -229,11 +277,20 @@ public class NeDispatchBenchmark {
   }
 
   @Benchmark
-  public void testMethod(final Blackhole bh) throws Throwable {
-    inT.send0(a);
-    inT.send0(b);
+  public void testMethodReflect(final Blackhole bh) throws Throwable {
+    inReflect.send0(a);
+    inReflect.send0(b);
     for (int i = 0; i < EVENT_COUNT; i++) {
-      bh.consume(outT.count[i]);
+      bh.consume(outReflect.count[i]);
+    }
+  }
+
+  @Benchmark
+  public void testMethodAnnProc(final Blackhole bh) throws Throwable {
+    inAnnProc.send0(a);
+    inAnnProc.send0(b);
+    for (int i = 0; i < EVENT_COUNT; i++) {
+      bh.consume(outAnnProc.count[i]);
     }
   }
 }

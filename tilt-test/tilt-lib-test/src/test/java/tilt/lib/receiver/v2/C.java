@@ -14,10 +14,8 @@ public abstract class C<X extends List<? extends Number> & Serializable, Y exten
   }
 
   @Override
-  abstract void testSwitch(@Switch Number value);
+  abstract void testSwitch(@Switch Number value) throws java.io.IOException;
 
-  void testCaseDouble(@Case Double value)
-  /** TODO throws java.io.IOException */
-  {
+  void testCaseDouble(@Case Double value) throws java.io.IOException {
   }
 }
